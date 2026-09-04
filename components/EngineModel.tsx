@@ -1,8 +1,8 @@
 'use client';
 
-import React, { Suspense, useMemo } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { useGLTF, Center, OrbitControls, Environment, Bounds } from '@react-three/drei';
+import React, { Suspense, useMemo, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useGLTF, Center, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface EngineMeshProps {
@@ -11,31 +11,42 @@ interface EngineMeshProps {
 
 function EngineMesh({ url }: EngineMeshProps) {
   const { scene } = useGLTF(url);
+  const rotatingGroupRef = useRef<THREE.Group>(null);
 
-  // Apply subtle professional dark graphite / gunmetal metallic material treatment
+  // Apply high-performance graphite/gunmetal material treatment
   const configuredScene = useMemo(() => {
     const cloned = scene.clone();
 
     const gunmetalMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#3c4350'),
-      metalness: 0.88,
-      roughness: 0.30,
-      envMapIntensity: 1.2,
+      color: new THREE.Color('#3a414e'),
+      metalness: 0.85,
+      roughness: 0.32,
     });
 
     cloned.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         mesh.material = gunmetalMaterial;
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
       }
     });
 
     return cloned;
   }, [scene]);
 
-  return <primitive object={configuredScene} />;
+  // Guaranteed continuous 60fps smooth rotation that NEVER stops when scrolling or interacting
+  useFrame((_, delta) => {
+    if (rotatingGroupRef.current) {
+      rotatingGroupRef.current.rotation.y += delta * 0.45;
+    }
+  });
+
+  return (
+    <group ref={rotatingGroupRef}>
+      <Center>
+        <primitive object={configuredScene} />
+      </Center>
+    </group>
+  );
 }
 
 // Preload the GLB asset
@@ -56,42 +67,42 @@ export const EngineModel: React.FC = () => {
       >
         <Canvas
           frameloop="always"
-          camera={{ position: [2.5, 1.8, 3.2], fov: 40 }}
-          gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-          dpr={[1, 1.5]}
-          className="w-full h-full"
+          camera={{ position: [3.2, 2.0, 4.0], fov: 42 }}
+          gl={{
+            alpha: true,
+            antialias: true,
+            powerPreference: 'high-performance',
+            stencil: false,
+            depth: true,
+          }}
+          dpr={[1, 1.25]}
+          className="w-full h-full pointer-events-auto"
         >
-          {/* Studio lighting setup for metallic depth and sharp CAD edge highlights */}
-          <ambientLight intensity={0.8} />
+          {/* Crisp, lag-free studio lighting with metallic depth and edge highlights */}
+          <ambientLight intensity={1.1} />
           
-          {/* Key light */}
-          <directionalLight position={[6, 8, 5]} intensity={2.4} color="#ffffff" />
+          {/* Key light from top right */}
+          <directionalLight position={[6, 9, 6]} intensity={2.6} color="#ffffff" />
           
-          {/* Rim light for silhouette separation */}
-          <directionalLight position={[-6, 5, -5]} intensity={1.8} color="#dbe4f0" />
+          {/* Soft fill light from front left */}
+          <directionalLight position={[-6, 4, 5]} intensity={1.5} color="#d5e0ee" />
           
-          {/* Subtle warm engineering-gold underfill */}
-          <directionalLight position={[0, -5, 4]} intensity={0.5} color="#cca43b" />
+          {/* Rim light for back silhouette separation */}
+          <directionalLight position={[-5, 6, -6]} intensity={2.0} color="#90b0d8" />
           
-          {/* Studio environment for realistic metallic reflections */}
-          <Environment preset="city" environmentIntensity={0.7} />
+          {/* Warm engineering-gold bounce underfill */}
+          <directionalLight position={[0, -6, 3]} intensity={0.7} color="#cca43b" />
 
-          {/* Bounds automatically fits the camera to the maximum bounding box size */}
-          <Bounds fit clip observe margin={1.05}>
-            <Center>
-              <EngineMesh url="/models/Final-assembly.glb" />
-            </Center>
-          </Bounds>
+          {/* 3D Engine with continuous delta-driven rotation */}
+          <EngineMesh url="/models/Final-assembly.glb" />
 
-          {/* OrbitControls: Keeps revolving, allows interactive rotate and pan, with zoom disabled */}
+          {/* Interactive controls: Rotate & Pan enabled, Zoom disabled to protect natural scroll */}
           <OrbitControls
-            autoRotate={true}
-            autoRotateSpeed={1.8}
             enablePan={true}
             enableRotate={true}
             enableZoom={false}
             enableDamping={true}
-            dampingFactor={0.05}
+            dampingFactor={0.06}
           />
         </Canvas>
       </Suspense>
