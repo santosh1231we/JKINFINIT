@@ -42,7 +42,7 @@ function EngineMesh({ url, isFocused }: EngineMeshProps) {
   });
 
   return (
-    <group ref={rotatingGroupRef} scale={1.22}>
+    <group ref={rotatingGroupRef} scale={1.65}>
       <Center>
         <primitive object={configuredScene} />
       </Center>
@@ -88,7 +88,7 @@ export const EngineModel: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[540px] sm:h-[650px] lg:h-[780px] xl:h-[860px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
+      className="relative w-full h-[600px] sm:h-[720px] md:h-[820px] lg:h-[880px] xl:h-[960px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
     >
       <Suspense
         fallback={
@@ -102,7 +102,7 @@ export const EngineModel: React.FC = () => {
       >
         <Canvas
           frameloop={isFocused ? 'always' : 'demand'}
-          camera={{ position: [2.9, 1.8, 3.5], fov: 38 }}
+          camera={{ position: [2.5, 1.6, 3.2], fov: 42 }}
           gl={{
             alpha: true,
             antialias: true,

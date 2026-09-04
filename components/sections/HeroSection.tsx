@@ -11,7 +11,7 @@ const EngineModel = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[540px] sm:h-[650px] lg:h-[780px] xl:h-[860px] flex flex-col items-center justify-center gap-3 text-slate-400 font-mono text-xs">
+      <div className="w-full h-[600px] sm:h-[720px] md:h-[820px] lg:h-[880px] xl:h-[960px] flex flex-col items-center justify-center gap-3 text-slate-400 font-mono text-xs">
         <div className="w-8 h-8 rounded-full border-2 border-slate-700 border-t-gold animate-spin" />
         <span className="tracking-widest uppercase text-[10px]">
           Initializing 3D Engine...
