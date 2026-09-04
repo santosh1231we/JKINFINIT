@@ -11,7 +11,7 @@ const EngineModel = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[460px] sm:h-[560px] lg:h-[660px] xl:h-[720px] flex flex-col items-center justify-center gap-3 text-slate-400 font-mono text-xs">
+      <div className="w-full h-[540px] sm:h-[650px] lg:h-[780px] xl:h-[860px] flex flex-col items-center justify-center gap-3 text-slate-400 font-mono text-xs">
         <div className="w-8 h-8 rounded-full border-2 border-slate-700 border-t-gold animate-spin" />
         <span className="tracking-widest uppercase text-[10px]">
           Initializing 3D Engine...
@@ -33,9 +33,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
       id="home"
       className="relative min-h-screen w-full flex items-center justify-center bg-[#08090b] bg-subtle-grid px-6 sm:px-10 lg:px-16 pt-24 pb-16 overflow-hidden"
     >
-      <div className="relative z-10 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <div className="relative z-10 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: Hero Typography & Actions */}
-        <div className="lg:col-span-6 flex flex-col justify-center">
+        <div className="lg:col-span-5 flex flex-col justify-center">
           {/* Top Tag */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -98,7 +98,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="lg:col-span-6 w-full flex items-center justify-center relative"
+          className="lg:col-span-7 w-full flex items-center justify-center relative"
         >
           <EngineModel />
         </motion.div>

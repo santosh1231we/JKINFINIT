@@ -88,7 +88,7 @@ export const EngineModel: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] xl:h-[780px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
+      className="relative w-full h-[540px] sm:h-[650px] lg:h-[780px] xl:h-[860px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
     >
       <Suspense
         fallback={
