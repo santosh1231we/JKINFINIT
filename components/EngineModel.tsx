@@ -42,7 +42,7 @@ function EngineMesh({ url, isFocused }: EngineMeshProps) {
   });
 
   return (
-    <group ref={rotatingGroupRef} scale={1.85}>
+    <group ref={rotatingGroupRef} scale={1.22}>
       <Center>
         <primitive object={configuredScene} />
       </Center>
@@ -102,7 +102,7 @@ export const EngineModel: React.FC = () => {
       >
         <Canvas
           frameloop={isFocused ? 'always' : 'demand'}
-          camera={{ position: [2.1, 1.3, 2.5], fov: 36 }}
+          camera={{ position: [2.9, 1.8, 3.5], fov: 38 }}
           gl={{
             alpha: true,
             antialias: true,
