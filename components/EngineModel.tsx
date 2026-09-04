@@ -1,15 +1,16 @@
 'use client';
 
-import React, { Suspense, useMemo, useRef } from 'react';
+import React, { Suspense, useMemo, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Center, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface EngineMeshProps {
   url: string;
+  isFocused: boolean;
 }
 
-function EngineMesh({ url }: EngineMeshProps) {
+function EngineMesh({ url, isFocused }: EngineMeshProps) {
   const { scene } = useGLTF(url);
   const rotatingGroupRef = useRef<THREE.Group>(null);
 
@@ -18,9 +19,9 @@ function EngineMesh({ url }: EngineMeshProps) {
     const cloned = scene.clone();
 
     const titaniumMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#626b7a'),
+      color: new THREE.Color('#646d7c'),
       metalness: 0.78,
-      roughness: 0.25,
+      roughness: 0.24,
     });
 
     cloned.traverse((child) => {
@@ -33,15 +34,15 @@ function EngineMesh({ url }: EngineMeshProps) {
     return cloned;
   }, [scene]);
 
-  // Guaranteed continuous 60fps smooth rotation that NEVER stops when scrolling or interacting
+  // Slower, majestic rotation speed (0.2) that pauses automatically when out of focus / scrolled out of view
   useFrame((_, delta) => {
-    if (rotatingGroupRef.current) {
-      rotatingGroupRef.current.rotation.y += delta * 0.45;
+    if (isFocused && rotatingGroupRef.current) {
+      rotatingGroupRef.current.rotation.y += delta * 0.20;
     }
   });
 
   return (
-    <group ref={rotatingGroupRef} scale={1.5}>
+    <group ref={rotatingGroupRef} scale={1.85}>
       <Center>
         <primitive object={configuredScene} />
       </Center>
@@ -53,8 +54,42 @@ function EngineMesh({ url }: EngineMeshProps) {
 useGLTF.preload('/models/Final-assembly.glb');
 
 export const EngineModel: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(true);
+  const [isTabActive, setIsTabActive] = useState(true);
+
+  // Stop revolution when out of viewport or tab is inactive to optimize performance
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    const handleVisibilityChange = () => {
+      setIsTabActive(document.visibilityState === 'visible');
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  const isFocused = isInView && isTabActive;
+
   return (
-    <div className="relative w-full h-[480px] sm:h-[580px] lg:h-[680px] xl:h-[760px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing">
+    <div
+      ref={containerRef}
+      className="relative w-full h-[500px] sm:h-[600px] lg:h-[700px] xl:h-[780px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing"
+    >
       <Suspense
         fallback={
           <div className="flex flex-col items-center justify-center gap-3 text-slate-400 font-mono text-xs">
@@ -66,8 +101,8 @@ export const EngineModel: React.FC = () => {
         }
       >
         <Canvas
-          frameloop="always"
-          camera={{ position: [2.3, 1.4, 2.8], fov: 38 }}
+          frameloop={isFocused ? 'always' : 'demand'}
+          camera={{ position: [2.1, 1.3, 2.5], fov: 36 }}
           gl={{
             alpha: true,
             antialias: true,
@@ -79,25 +114,25 @@ export const EngineModel: React.FC = () => {
           className="w-full h-full pointer-events-auto"
         >
           {/* Enhanced studio lighting setup: bright, clear, and high-contrast */}
-          <ambientLight intensity={1.6} />
+          <ambientLight intensity={1.7} />
           
           {/* Key light from top right */}
-          <directionalLight position={[5, 8, 5]} intensity={3.6} color="#ffffff" />
+          <directionalLight position={[5, 8, 5]} intensity={3.8} color="#ffffff" />
           
           {/* Front camera fill light for sharp surface clarity */}
-          <directionalLight position={[0, 3, 6]} intensity={2.4} color="#ffffff" />
+          <directionalLight position={[0, 3, 6]} intensity={2.6} color="#ffffff" />
           
           {/* Soft cool fill light from side */}
-          <directionalLight position={[-6, 3, 4]} intensity={2.0} color="#e2ebf8" />
+          <directionalLight position={[-6, 3, 4]} intensity={2.2} color="#e2ebf8" />
           
           {/* Rim light for distinct silhouette & bevel edge separation */}
-          <directionalLight position={[-5, 6, -5]} intensity={2.5} color="#c5daf8" />
+          <directionalLight position={[-5, 6, -5]} intensity={2.6} color="#c5daf8" />
           
           {/* Warm engineering-gold specular bounce */}
-          <directionalLight position={[2, -4, 3]} intensity={1.0} color="#e5ba48" />
+          <directionalLight position={[2, -4, 3]} intensity={1.1} color="#e5ba48" />
 
-          {/* Scaled and centered 3D Engine with continuous delta-driven rotation */}
-          <EngineMesh url="/models/Final-assembly.glb" />
+          {/* Scaled and centered 3D Engine with slower, focus-aware rotation */}
+          <EngineMesh url="/models/Final-assembly.glb" isFocused={isFocused} />
 
           {/* Interactive controls: Rotate & Pan enabled, Zoom disabled to protect natural scroll */}
           <OrbitControls
