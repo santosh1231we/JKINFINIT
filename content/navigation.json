@@ -1,0 +1,13 @@
+{
+  "company": {
+    "name": "JKINFINIT",
+    "tagline": "Precision Engineering"
+  },
+  "sections": [
+    { "id": "home", "index": "01", "label": "HOME" },
+    { "id": "about", "index": "02", "label": "ABOUT" },
+    { "id": "capabilities", "index": "03", "label": "CAPABILITIES" },
+    { "id": "founder", "index": "04", "label": "FOUNDER" },
+    { "id": "contact", "index": "05", "label": "CONTACT" }
+  ]
+}
