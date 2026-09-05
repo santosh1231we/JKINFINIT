@@ -1,25 +1,9 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { SITE_COPY } from '../content/copy';
-
-// Dynamically import EngineModel with SSR disabled
-const EngineModel = dynamic(
-  () => import('../EngineModel').then((mod) => mod.EngineModel),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[600px] sm:h-[720px] md:h-[820px] lg:h-[880px] xl:h-[960px] flex flex-col items-center justify-center gap-3 text-slate-400 font-mono text-xs">
-        <div className="w-8 h-8 rounded-full border-2 border-slate-700 border-t-gold animate-spin" />
-        <span className="tracking-widest uppercase text-[10px]">
-          Initializing 3D Engine...
-        </span>
-      </div>
-    ),
-  }
-);
+import { EngineVisual } from '../EngineVisual';
 
 interface HeroSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -31,9 +15,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
   return (
     <section
       id="home"
-      className="relative min-h-screen w-full flex items-center justify-center bg-[#08090b] bg-subtle-grid px-6 sm:px-10 lg:px-16 pt-24 pb-16 overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-between bg-[#08090b] bg-subtle-grid px-6 sm:px-10 lg:px-16 pt-24 sm:pt-28 pb-8 overflow-hidden"
     >
-      <div className="relative z-10 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* Main Hero Center Content */}
+      <div className="relative z-10 max-w-7xl w-full mx-auto my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center py-6">
         {/* Left Column: Hero Typography & Actions */}
         <div className="lg:col-span-5 flex flex-col justify-center">
           {/* Top Tag */}
@@ -75,33 +60,46 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
 
             <div className="flex flex-wrap items-center gap-4">
               <button
-                onClick={() => onNavigate('capabilities')}
-                className="px-6 py-3 rounded text-xs uppercase tracking-wider font-medium text-black bg-gold hover:bg-gold-light transition-colors focus:outline-none cursor-pointer"
+                onClick={() => onNavigate('contact')}
+                className="px-6 py-3 rounded text-xs uppercase tracking-wider font-semibold text-black bg-gold hover:bg-gold-light transition-colors focus:outline-none cursor-pointer flex items-center gap-2"
               >
-                {hero.ctaPrimary}
+                <span>{hero.ctaPrimary}</span>
+                <span>→</span>
               </button>
               <button
-                onClick={() => onNavigate('about')}
+                onClick={() => onNavigate('capabilities')}
                 className="px-6 py-3 rounded text-xs uppercase tracking-wider font-medium text-slate-300 hover:text-white bg-surface hover:bg-surface-elevated hairline-all transition-colors focus:outline-none flex items-center gap-2 group cursor-pointer"
               >
                 <span>{hero.ctaSecondary}</span>
-                <span className="text-gold group-hover:translate-x-0.5 transition-transform">
-                  →
-                </span>
               </button>
             </div>
           </motion.div>
         </div>
 
-        {/* Right Column: 3D Engine Model Viewer */}
+        {/* Right Column: High-Quality Engineering Assembly Visual */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
           className="lg:col-span-7 w-full flex items-center justify-center relative"
         >
-          <EngineModel />
+          <EngineVisual />
         </motion.div>
+      </div>
+
+      {/* Hero Bottom Engineering Accents Bar (as seen in reference design) */}
+      <div className="relative z-10 max-w-7xl w-full mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 hairline-t text-[11px] font-mono text-slate-500 uppercase tracking-widest select-none">
+        <div className="flex items-center gap-3">
+          <span className="w-4 h-[1.5px] bg-gold inline-block" />
+          <span>{hero.footerTagline || 'BUILT FOR A MORE PRECISE TOMORROW'}</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <span>
+            {(hero.footerCategories || ['AUTOMOTIVE', 'ELECTRICAL', 'MECHATRONICS', 'PRECISION']).join('  /  ')}
+          </span>
+          <span className="w-4 h-[1.5px] bg-gold inline-block" />
+        </div>
       </div>
     </section>
   );
