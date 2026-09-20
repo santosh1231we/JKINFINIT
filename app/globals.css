@@ -4,17 +4,16 @@
 
 @layer base {
   :root {
-    --bg-color: #00125e;
-    --brand-blue: #001b94;
-    --brand-deep: #000c40;
-    --brand-dark: #00115a;
-    --brand-surface: #021464;
-    --emerald: #00c875;
-    --emerald-light: #00e588;
-    --red-precision: #e11d48;
-    --text-primary: #ffffff;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
+    --bg-color: #001B94;
+    --brand-blue: #001B94;
+    --brand-deep: #000F5C;
+    --brand-surface: #00147a;
+    --emerald: #00A86B;
+    --emerald-light: #00c87e;
+    --red-precision: #E31B23;
+    --text-primary: #FFFFFF;
+    --text-secondary: #D9E2FF;
+    --text-muted: #8ca4e6;
     --border-subtle: rgba(255, 255, 255, 0.12);
   }
 
@@ -34,8 +33,8 @@
   }
 
   ::selection {
-    background-color: #00c875;
-    color: #000c40;
+    background-color: #00A86B;
+    color: #000F5C;
   }
 
   /* Precision corporate scrollbar */
@@ -43,23 +42,23 @@
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #000c40;
+    background: #000F5C;
   }
   ::-webkit-scrollbar-thumb {
-    background: #021c7a;
+    background: #00147a;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #00c875;
+    background: #00A86B;
   }
 }
 
-/* Subtle engineering grid on corporate blue */
+/* Subtle engineering grid derived from approved blue palette — NO cyan */
 .bg-subtle-grid {
   background-size: 56px 56px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
 /* Precision hairline rules */
@@ -77,27 +76,21 @@
 
 /* Red Precision Technical Rules */
 .red-rule-t {
-  border-top: 1px solid rgba(225, 29, 72, 0.7);
+  border-top: 1.5px solid #E31B23;
 }
 
 .red-rule-b {
-  border-bottom: 1px solid rgba(225, 29, 72, 0.7);
+  border-bottom: 1.5px solid #E31B23;
 }
 
-/* Holographic Engineering Visual Styling */
+/* Holographic Engineering Visual Scanlines — Ultra subtle blue/white */
 .hologram-scanlines {
   background: repeating-linear-gradient(
     0deg,
-    rgba(0, 200, 117, 0.03) 0px,
-    rgba(0, 200, 117, 0.03) 1px,
+    rgba(217, 226, 255, 0.04) 0px,
+    rgba(217, 226, 255, 0.04) 1px,
     transparent 1px,
     transparent 3px
   );
   pointer-events: none;
-}
-
-.hologram-glow {
-  filter: drop-shadow(0 0 25px rgba(0, 27, 148, 0.8))
-    drop-shadow(0 0 40px rgba(0, 200, 117, 0.25))
-    drop-shadow(0 20px 45px rgba(0, 0, 0, 0.8));
 }

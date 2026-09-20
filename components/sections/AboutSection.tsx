@@ -11,15 +11,22 @@ export const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-[#000e47] via-[#00115a] to-[#00146e] bg-subtle-grid px-6 sm:px-12 lg:px-20 py-28 border-t border-white/10 overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center bg-[#001B94] px-6 sm:px-12 lg:px-20 py-28 border-t border-white/10 overflow-hidden"
     >
-      <InfinityWatermark position="bottom-left" variant="blue" opacity={0.07} />
+      {/* Subtle Engineering Grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-subtle-grid opacity-30"
+      />
+
+      {/* Large Architectural Infinity Watermark */}
+      <InfinityWatermark position="left" opacity={0.08} rotate={15} />
 
       <div className="relative z-10 max-w-6xl w-full mx-auto">
         {/* Section Tag */}
         <div className="mb-4">
-          <span className="inline-flex items-center gap-3 text-[13px] font-mono tracking-[0.22em] text-emerald uppercase font-semibold">
-            <span className="w-8 h-[1.5px] bg-red-precision" />
+          <span className="inline-flex items-center gap-3 text-[13px] font-mono tracking-[0.22em] text-[#00A86B] uppercase font-bold">
+            <span className="w-8 h-[2px] bg-[#E31B23]" />
             {about.tag}
           </span>
         </div>
@@ -41,12 +48,15 @@ export const AboutSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="p-8 sm:p-10 rounded-sm bg-[#000c40]/70 border border-white/10 space-y-4 max-w-2xl mb-12 shadow-lg backdrop-blur-sm"
+          className="p-8 sm:p-10 rounded-sm bg-[#000F5C]/80 border border-white/10 space-y-4 max-w-2xl mb-12 shadow-xl backdrop-blur-sm relative"
         >
-          <div className="inline-block px-3 py-1 rounded-sm bg-[#001880] text-[10px] font-mono tracking-widest text-emerald-light uppercase font-semibold border border-emerald/30">
+          {/* Red Precision Top Rule */}
+          <div className="absolute top-0 left-6 right-6 h-[1.5px] bg-[#E31B23]" />
+
+          <div className="inline-block px-3 py-1 rounded-sm bg-[#00147a] text-[10px] font-mono tracking-widest text-[#00A86B] uppercase font-bold border border-[#00A86B]/30">
             {about.underConstructionNotice}
           </div>
-          <p className="text-base text-slate-200 leading-relaxed font-normal">
+          <p className="text-base text-[#D9E2FF] leading-relaxed font-normal">
             {about.underConstructionMessage}
           </p>
         </motion.div>
@@ -59,18 +69,21 @@ export const AboutSection: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="pt-8 border-t border-white/10"
         >
-          <span className="text-xs font-mono uppercase tracking-widest text-slate-300 block mb-5">
+          <span className="text-xs font-mono uppercase tracking-widest text-[#D9E2FF] block mb-5 font-semibold">
             Core Engineering Focus
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {about.focusAreas.map((area, idx) => (
               <div
                 key={idx}
-                className="group p-5 rounded-sm bg-[#00115a]/80 border border-white/10 text-xs text-slate-200 font-medium transition-all duration-200 hover:border-emerald/50 hover:bg-[#001880] shadow-sm"
+                className="group p-5 rounded-sm bg-[#000F5C]/90 border border-white/10 text-xs text-[#D9E2FF] font-medium transition-all duration-200 hover:border-[#00A86B]/60 hover:bg-[#00147a] shadow-md relative"
               >
+                {/* 1px Red Edge Micro-Accent */}
+                <div className="absolute top-0 left-4 w-6 h-[1.5px] bg-[#E31B23]" />
+
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-emerald font-mono font-semibold">0{idx + 1}.</span>
-                  <span className="w-2 h-[1.5px] bg-red-precision/60 group-hover:bg-red-precision transition-colors" />
+                  <span className="text-[#00A86B] font-mono font-bold">0{idx + 1}.</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00A86B] opacity-70" />
                 </div>
                 <span className="text-sm text-white font-normal block">{area}</span>
               </div>

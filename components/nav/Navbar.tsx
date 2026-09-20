@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { SECTIONS, SITE_COPY } from '../content/copy';
 
 interface NavbarProps {
@@ -30,27 +31,35 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#000e47]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-3.5'
-          : 'bg-[#001B94]/60 backdrop-blur-sm border-b border-white/10 py-5'
+          ? 'bg-[#000F5C]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-3.5'
+          : 'bg-transparent py-5'
       }`}
     >
       {/* 1px Red Engineering Precision Top Edge Trace */}
-      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-red-precision/70 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-[#E31B23]" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between">
-        {/* Brand / Logo */}
+        {/* Brand / Logo with Authentic Infinity Symbol */}
         <a
           href="#home"
           onClick={(e) => handleLinkClick(e, 'home')}
           className="group flex flex-col cursor-pointer select-none"
         >
           <div className="flex items-center gap-2">
-            <span className="text-xl sm:text-2xl font-semibold tracking-wider text-white group-hover:text-emerald transition-colors duration-200">
+            <span className="text-xl sm:text-2xl font-semibold tracking-wider text-white">
               {SITE_COPY.company.name}
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald inline-block" />
+            <div className="relative w-6 h-4 sm:w-7 sm:h-5">
+              <Image
+                src="/assets/infinity-symbol.png"
+                alt="JKinfinit Infinity"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
-          <span className="text-[10px] tracking-[0.2em] text-slate-300 uppercase font-mono">
+          <span className="text-[10px] tracking-[0.2em] text-[#D9E2FF] uppercase font-mono">
             {SITE_COPY.company.tagline}
           </span>
         </a>
@@ -67,14 +76,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
                 className={`relative px-4 py-2 text-xs uppercase tracking-widest transition-all duration-200 cursor-pointer ${
                   isActive
                     ? 'text-white font-semibold'
-                    : 'text-slate-300 hover:text-white'
+                    : 'text-[#D9E2FF] hover:text-white'
                 }`}
               >
                 <span>{sec.label}</span>
 
                 {/* Emerald Active Indicator Rule */}
                 {isActive && (
-                  <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-emerald rounded-full shadow-[0_0_8px_rgba(0,200,117,0.8)]" />
+                  <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-[#00A86B] rounded-full shadow-[0_0_8px_rgba(0,168,107,0.8)]" />
                 )}
               </a>
             );
@@ -86,9 +95,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
           <a
             href="#contact"
             onClick={(e) => handleLinkClick(e, 'contact')}
-            className="px-5 py-2 rounded-sm text-xs font-semibold tracking-wider text-white bg-surface hover:bg-emerald hover:text-[#000e47] border border-white/20 hover:border-emerald transition-all duration-200 shadow-sm"
+            className="px-5 py-2 rounded-sm text-xs font-semibold tracking-wider text-white bg-[#000F5C]/80 hover:bg-[#00A86B] hover:text-[#000F5C] border border-white/20 hover:border-[#00A86B] transition-all duration-200 shadow-sm flex items-center gap-1.5"
           >
-            INQUIRE
+            <span>INQUIRE</span>
+            <span>→</span>
           </a>
         </div>
 
@@ -96,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-slate-200 hover:text-emerald focus:outline-none"
+          className="md:hidden p-2 text-white hover:text-[#00A86B] focus:outline-none"
           aria-label="Toggle Menu"
         >
           <svg
@@ -126,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#000e47] border-b border-white/10 px-6 py-6 space-y-4 shadow-xl">
+        <div className="md:hidden bg-[#000F5C] border-b border-white/10 px-6 py-6 space-y-4 shadow-xl">
           {SECTIONS.map((sec) => {
             const isActive = activeSection === sec.id;
             return (
@@ -135,7 +145,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
                 href={`#${sec.id}`}
                 onClick={(e) => handleLinkClick(e, sec.id)}
                 className={`block py-1.5 text-sm uppercase tracking-wider ${
-                  isActive ? 'text-emerald font-semibold' : 'text-slate-300'
+                  isActive ? 'text-[#00A86B] font-semibold' : 'text-[#D9E2FF]'
                 }`}
               >
                 {sec.label}
@@ -146,9 +156,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, 'contact')}
-              className="block w-full text-center py-2.5 rounded-sm text-xs font-bold text-[#000e47] bg-emerald hover:bg-emerald-light transition-colors uppercase tracking-wider"
+              className="block w-full text-center py-2.5 rounded-sm text-xs font-bold text-[#000F5C] bg-[#00A86B] hover:bg-[#00c87e] transition-colors uppercase tracking-wider"
             >
-              CONTACT JKINFINIT
+              CONTACT JKINFINIT →
             </a>
           </div>
         </div>

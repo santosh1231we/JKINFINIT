@@ -11,15 +11,22 @@ export const ContactSection: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-[#00146e] via-[#00115a] to-[#000e47] bg-subtle-grid px-6 sm:px-12 lg:px-20 py-28 border-t border-white/10 overflow-hidden"
+      className="relative min-h-screen w-full flex items-center justify-center bg-[#001B94] px-6 sm:px-12 lg:px-20 py-28 border-t border-white/10 overflow-hidden"
     >
-      <InfinityWatermark position="bottom-right" variant="emerald" opacity={0.06} />
+      {/* Subtle Engineering Grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-subtle-grid opacity-30"
+      />
+
+      {/* Large Architectural Infinity Watermark */}
+      <InfinityWatermark position="bottom-right" opacity={0.08} rotate={-20} />
 
       <div className="relative z-10 max-w-5xl w-full mx-auto">
         {/* Section Tag */}
         <div className="mb-4">
-          <span className="inline-flex items-center gap-3 text-[13px] font-mono tracking-[0.22em] text-emerald uppercase font-semibold">
-            <span className="w-8 h-[1.5px] bg-red-precision" />
+          <span className="inline-flex items-center gap-3 text-[13px] font-mono tracking-[0.22em] text-[#00A86B] uppercase font-bold">
+            <span className="w-8 h-[2px] bg-[#E31B23]" />
             {contact.tag}
           </span>
         </div>
@@ -41,19 +48,19 @@ export const ContactSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="p-8 sm:p-12 rounded-sm bg-[#000c40]/80 border border-white/10 space-y-4 max-w-2xl shadow-xl backdrop-blur-sm relative"
+          className="p-8 sm:p-12 rounded-sm bg-[#000F5C]/85 border border-white/10 space-y-4 max-w-2xl shadow-xl backdrop-blur-sm relative"
         >
           {/* Top Red Engineering Rule */}
-          <div className="absolute top-0 left-8 right-8 h-[2px] bg-red-precision/70" />
+          <div className="absolute top-0 left-8 right-8 h-[2px] bg-[#E31B23]" />
 
-          <div className="inline-block px-3 py-1 rounded-sm bg-[#001880] text-[10px] font-mono tracking-widest text-emerald-light uppercase font-semibold border border-emerald/30">
+          <div className="inline-block px-3 py-1 rounded-sm bg-[#00147a] text-[10px] font-mono tracking-widest text-[#00A86B] uppercase font-bold border border-[#00A86B]/30">
             {contact.underConstructionNotice}
           </div>
-          <p className="text-base text-slate-200 leading-relaxed font-normal">
+          <p className="text-base text-[#D9E2FF] leading-relaxed font-normal">
             {contact.underConstructionMessage}
           </p>
-          <div className="pt-3 flex items-center gap-3 text-[11px] font-mono uppercase tracking-widest text-slate-400 border-t border-white/10">
-            <span className="w-6 h-[1.5px] bg-emerald" />
+          <div className="pt-3 flex items-center gap-3 text-[11px] font-mono uppercase tracking-widest text-[#D9E2FF]/80 border-t border-white/10">
+            <span className="w-6 h-[1.5px] bg-[#00A86B]" />
             <span>Engineering inquiries & technical validation</span>
           </div>
         </motion.div>

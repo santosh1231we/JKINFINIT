@@ -57,7 +57,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="relative bg-[#00125e] text-white min-h-screen">
+    <main className="relative bg-[#001B94] text-white min-h-screen">
       {/* Fixed Top Navigation */}
       <Navbar activeSection={activeSection} onNavigate={handleNavigate} />
 
