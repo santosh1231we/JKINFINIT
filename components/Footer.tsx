@@ -11,14 +11,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#060709] hairline-t px-6 sm:px-12 lg:px-20 py-12 text-slate-400 text-xs">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="w-full bg-[#000a33] border-t border-white/10 px-6 sm:px-12 lg:px-20 py-14 text-slate-300 text-xs relative overflow-hidden">
+      {/* 1px Red Engineering Precision Top Rule */}
+      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-red-precision/60 to-transparent" />
+
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Brand */}
         <div className="flex flex-col items-center md:items-start gap-1">
-          <span className="text-white font-medium tracking-wider text-sm">
-            {SITE_COPY.company.name}
-          </span>
-          <span className="text-[10px] text-slate-400 uppercase tracking-widest font-mono">
+          <div className="flex items-center gap-2">
+            <span className="text-white font-semibold tracking-wider text-base">
+              {SITE_COPY.company.name}
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald" />
+          </div>
+          <span className="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-mono">
             {SITE_COPY.company.tagline}
           </span>
         </div>
@@ -29,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <button
               key={sec.id}
               onClick={() => onNavigate(sec.id)}
-              className="text-slate-400 hover:text-white uppercase tracking-wider text-xs transition-colors focus:outline-none"
+              className="text-slate-300 hover:text-emerald uppercase tracking-wider text-xs transition-colors focus:outline-none cursor-pointer"
             >
               {sec.label}
             </button>
@@ -38,14 +44,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             href={SITE_COPY.founder.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-gold uppercase tracking-wider text-xs transition-colors"
+            className="text-slate-300 hover:text-emerald uppercase tracking-wider text-xs transition-colors"
           >
             LinkedIn
           </a>
         </nav>
 
         {/* Copyright */}
-        <div className="text-slate-400 text-[11px]">
+        <div className="text-slate-400 text-[11px] font-mono">
           © {currentYear} {SITE_COPY.company.name}. All rights reserved.
         </div>
       </div>

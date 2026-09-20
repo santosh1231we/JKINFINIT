@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -30,27 +30,33 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#08090b]/95 backdrop-blur-md hairline-b py-4 shadow-xl'
-          : 'bg-transparent py-6 hairline-b'
+          ? 'bg-[#000e47]/95 backdrop-blur-md border-b border-white/10 shadow-lg py-3.5'
+          : 'bg-[#001B94]/60 backdrop-blur-sm border-b border-white/10 py-5'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 flex items-center justify-between">
+      {/* 1px Red Engineering Precision Top Edge Trace */}
+      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-red-precision/70 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between">
         {/* Brand / Logo */}
         <a
           href="#home"
           onClick={(e) => handleLinkClick(e, 'home')}
           className="group flex flex-col cursor-pointer select-none"
         >
-          <span className="text-base sm:text-lg font-medium tracking-wider text-white group-hover:text-gold transition-colors duration-200">
-            {SITE_COPY.company.name}
-          </span>
-          <span className="text-[10px] tracking-widest text-slate-400 uppercase font-mono">
+          <div className="flex items-center gap-2">
+            <span className="text-xl sm:text-2xl font-semibold tracking-wider text-white group-hover:text-emerald transition-colors duration-200">
+              {SITE_COPY.company.name}
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald inline-block" />
+          </div>
+          <span className="text-[10px] tracking-[0.2em] text-slate-300 uppercase font-mono">
             {SITE_COPY.company.tagline}
           </span>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center space-x-1 lg:space-x-3">
           {SECTIONS.map((sec) => {
             const isActive = activeSection === sec.id;
             return (
@@ -58,29 +64,29 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
                 key={sec.id}
                 href={`#${sec.id}`}
                 onClick={(e) => handleLinkClick(e, sec.id)}
-                className={`relative px-4 py-2 text-xs uppercase tracking-widest transition-colors duration-200 cursor-pointer ${
+                className={`relative px-4 py-2 text-xs uppercase tracking-widest transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'text-white font-medium'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'text-white font-semibold'
+                    : 'text-slate-300 hover:text-white'
                 }`}
               >
                 <span>{sec.label}</span>
 
-                {/* Gold Active Indicator Underline */}
+                {/* Emerald Active Indicator Rule */}
                 {isActive && (
-                  <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-gold" />
+                  <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-emerald rounded-full shadow-[0_0_8px_rgba(0,200,117,0.8)]" />
                 )}
               </a>
             );
           })}
         </nav>
 
-        {/* Right Inquire Button */}
+        {/* Right Action: INQUIRE Button */}
         <div className="hidden md:flex items-center">
           <a
             href="#contact"
             onClick={(e) => handleLinkClick(e, 'contact')}
-            className="px-4 py-2 rounded text-xs font-medium tracking-wider text-white hairline-all bg-surface hover:bg-gold hover:text-black hover:border-gold transition-all duration-200"
+            className="px-5 py-2 rounded-sm text-xs font-semibold tracking-wider text-white bg-surface hover:bg-emerald hover:text-[#000e47] border border-white/20 hover:border-emerald transition-all duration-200 shadow-sm"
           >
             INQUIRE
           </a>
@@ -90,11 +96,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-slate-400 hover:text-white focus:outline-none"
+          className="md:hidden p-2 text-slate-200 hover:text-emerald focus:outline-none"
           aria-label="Toggle Menu"
         >
           <svg
-            className="w-5 h-5"
+            className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -120,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#090a0c] hairline-b px-6 py-6 space-y-4">
+        <div className="md:hidden bg-[#000e47] border-b border-white/10 px-6 py-6 space-y-4 shadow-xl">
           {SECTIONS.map((sec) => {
             const isActive = activeSection === sec.id;
             return (
@@ -128,19 +134,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
                 key={sec.id}
                 href={`#${sec.id}`}
                 onClick={(e) => handleLinkClick(e, sec.id)}
-                className={`block py-1 text-sm uppercase tracking-wider ${
-                  isActive ? 'text-gold font-medium' : 'text-slate-400'
+                className={`block py-1.5 text-sm uppercase tracking-wider ${
+                  isActive ? 'text-emerald font-semibold' : 'text-slate-300'
                 }`}
               >
                 {sec.label}
               </a>
             );
           })}
-          <div className="pt-4 hairline-t">
+          <div className="pt-4 border-t border-white/10">
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, 'contact')}
-              className="block w-full text-center py-2.5 rounded text-xs font-medium text-black bg-gold hover:bg-gold-light transition-colors"
+              className="block w-full text-center py-2.5 rounded-sm text-xs font-bold text-[#000e47] bg-emerald hover:bg-emerald-light transition-colors uppercase tracking-wider"
             >
               CONTACT JKINFINIT
             </a>

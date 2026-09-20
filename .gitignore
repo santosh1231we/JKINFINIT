@@ -16,6 +16,8 @@
 # Misc
 .DS_Store
 *.pem
+*.lnk
+*.exe
 
 # Debug logs
 npm-debug.log*

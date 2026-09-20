@@ -4,15 +4,18 @@
 
 @layer base {
   :root {
-    --bg-color: #08090b;
-    --text-primary: #f5f6f8;
-    --text-secondary: #8fa0b5;
-    --text-muted: #576375;
-    --gold: #cca43b;
-    --gold-hover: #ddb754;
-    --surface: #0e1014;
-    --surface-elevated: #181c24;
-    --border-subtle: rgba(255, 255, 255, 0.08);
+    --bg-color: #00125e;
+    --brand-blue: #001b94;
+    --brand-deep: #000c40;
+    --brand-dark: #00115a;
+    --brand-surface: #021464;
+    --emerald: #00c875;
+    --emerald-light: #00e588;
+    --red-precision: #e11d48;
+    --text-primary: #ffffff;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-subtle: rgba(255, 255, 255, 0.12);
   }
 
   html {
@@ -31,42 +34,70 @@
   }
 
   ::selection {
-    background-color: #cca43b;
-    color: #08090b;
+    background-color: #00c875;
+    color: #000c40;
   }
 
-  /* Precision scrollbar */
+  /* Precision corporate scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #08090b;
+    background: #000c40;
   }
   ::-webkit-scrollbar-thumb {
-    background: #1f242f;
+    background: #021c7a;
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #cca43b;
+    background: #00c875;
   }
 }
 
-/* Subtle engineering grid (understated & barely noticeable) */
+/* Subtle engineering grid on corporate blue */
 .bg-subtle-grid {
-  background-size: 48px 48px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
+/* Precision hairline rules */
 .hairline-b {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .hairline-t {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .hairline-all {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Red Precision Technical Rules */
+.red-rule-t {
+  border-top: 1px solid rgba(225, 29, 72, 0.7);
+}
+
+.red-rule-b {
+  border-bottom: 1px solid rgba(225, 29, 72, 0.7);
+}
+
+/* Holographic Engineering Visual Styling */
+.hologram-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 200, 117, 0.03) 0px,
+    rgba(0, 200, 117, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.hologram-glow {
+  filter: drop-shadow(0 0 25px rgba(0, 27, 148, 0.8))
+    drop-shadow(0 0 40px rgba(0, 200, 117, 0.25))
+    drop-shadow(0 20px 45px rgba(0, 0, 0, 0.8));
 }
